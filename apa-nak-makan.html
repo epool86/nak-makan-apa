@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Apa Nak Makan?</title>
+<style>
+  :root { --bg: #FFD23F; --accent: #EE4266; --dark: #272727; --white: #FFFFFF; }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; padding: 0; background-color: var(--bg);
+    font-family: 'Helvetica Neue', Arial, sans-serif;
+    height: 100vh; overflow: hidden; display: flex;
+    align-items: center; justify-content: center;
+  }
+  .app-canvas {
+    width: 100%; height: 100%; display: flex; flex-direction: column;
+    align-items: center; justify-content: center; text-align: center;
+    padding: 40px; border: 20px solid var(--dark);
+  }
+  .title-container {
+    flex: 1; display: flex; align-items: center; justify-content: center;
+  }
+  h1 {
+    font-size: clamp(3rem, 8vw, 96px); line-height: 0.85; font-weight: 900;
+    text-transform: uppercase; color: var(--dark);
+    letter-spacing: -4px; text-shadow: 6px 6px 0 var(--accent);
+    margin: 0;
+  }
+  .controls {
+    flex: 0 0 auto; margin: 20px 0;
+  }
+  button {
+    background-color: var(--accent); color: var(--white);
+    border: 6px solid var(--dark); padding: 24px 60px;
+    font-size: clamp(1.5rem, 4vw, 36px); font-weight: 900; border-radius: 100px;
+    cursor: pointer; box-shadow: 0 12px 0 var(--dark);
+    transition: all 0.1s; text-transform: uppercase; letter-spacing: 1px;
+  }
+  button:active { transform: translateY(8px); box-shadow: 0 4px 0 var(--dark); }
+  .result-area {
+    flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center;
+    width: 100%;
+  }
+  #result {
+    font-size: clamp(2.5rem, 6vw, 82px); font-weight: 900; color: var(--dark); margin: 0; line-height: 1; text-transform: uppercase;
+    animation: pop 0.5s ease-out; min-height: 120px;
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+  }
+  .emoji {
+    font-size: clamp(5rem, 12vw, 120px); margin-top: 10px; display: block;
+  }
+  @keyframes pop {
+    0% { transform: scale(0.5); opacity: 0; }
+    100% { transform: scale(1); opacity: 1; }
+  }
+</style>
+</head>
+<body>
+<div class="app-canvas">
+  <div class="title-container">
+    <h1>Apa nak<br>makan tonight?</h1>
+  </div>
+  <div class="controls">
+    <button onclick="pickDish()">Pilih untuk saya!</button>
+  </div>
+  <div class="result-area">
+    <div id="result"></div>
+  </div>
+</div>
+
+<script>
+  const dishes = [
+    { name: "Nasi Lemak", emoji: "🥥" },
+    { name: "Roti Canai", emoji: "🫓" },
+    { name: "Laksa", emoji: "🍜" },
+    { name: "Satay", emoji: "🍢" },
+    { name: "Mee Goreng", emoji: "🍝" },
+    { name: "Cendol", emoji: "🍧" },
+    { name: "Rendang", emoji: "🍲" },
+    { name: "Teh Tarik", emoji: "☕" },
+    { name: "Mee Rebus", emoji: "🥘" },
+    { name: "Nasi Kerabu", emoji: "🥗" }
+  ];
+
+  function pickDish() {
+    const dish = dishes[Math.floor(Math.random() * dishes.length)];
+    const resultDiv = document.getElementById('result');
+    resultDiv.style.animation = 'none';
+    setTimeout(() => {
+      resultDiv.innerHTML = `<span>${dish.name}</span><span class="emoji">${dish.emoji}</span>`;
+      resultDiv.style.animation = 'pop 0.5s ease-out';
+    }, 10);
+  }
+</script>
+</body>
+</html>
